@@ -38,7 +38,7 @@ class GCPVm{
 
 abstract class Cloud{
 + getProviderVm()
-{abstract} IVm VmSupply()
+{abstract} IVm VmSupply(VM vm)
 }
 
 class ProviderCloud {
@@ -67,6 +67,11 @@ AzureMachineType <-- AzureVm : has
 AWSMachineType <-- AWSVm : has
 GCPMachineType <-- GCPVm : has 
 
-
+enum CloudProviderType {
+    AWS 
+    AZURE
+    GCP
+    PROMISE-ON
+}
 
 @enduml

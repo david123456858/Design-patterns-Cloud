@@ -1,0 +1,72 @@
+@startuml cloud-factory
+class VM {
+- String Iso
+- String Ram
+- String CPUs
+- String networkPhysical
+- String disk.
+}
+
+enum AWSMachineType{
+t2.micro 
+m5.large
+}
+enum AzureMachineType {
+Standard_B1s
+}
+enum GCPMachineType {
+n1-standard-1
+}
+
+class AWSVm {
+- AWSMachineType type
+- String Region
+- String VPC
+- String AMI
+}
+class AzureVm{
+- AzureMachineType type
+- String  resource group
+- String red vital
+}
+class GCPVm{
+- GCPMachineType type
+- String zone
+- String diskBase
+- String project
+}
+
+abstract class Cloud{
++ getProviderVm()
+{abstract} IVm VmSupply()
+}
+
+class ProviderCloud {
+    - Map<String, Cloud> methods
+}
+
+class AWS{}
+class AZURE{}
+class GCP{}
+
+Cloud <|-- AWS
+Cloud <|-- GCP
+Cloud <|-- AZURE
+
+AWS --> AWSVm : create
+AZURE --> AzureVm : create
+GCP --> GCPVm : create
+
+Cloud --> ProviderCloud
+
+VM <|-- AzureVm
+VM <|-- GCPVm
+VM <|-- AWSVm
+
+AzureMachineType <-- AzureVm : has
+AWSMachineType <-- AWSVm : has
+GCPMachineType <-- GCPVm : has 
+
+
+
+@enduml

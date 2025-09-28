@@ -1,10 +1,8 @@
 @startuml cloud-factory
-class VM {
-- String Iso
+abstract class VM {
 - String Ram
 - String CPUs
-- String networkPhysical
-- String disk.
+- String disk
 }
 
 enum AWSMachineType{
@@ -26,14 +24,17 @@ class AWSVm {
 }
 class AzureVm{
 - AzureMachineType type
-- String  resource group
-- String red vital
+- String  resourceGroup
+- String redVital
 }
 class GCPVm{
 - GCPMachineType type
 - String zone
 - String diskBase
 - String project
+}
+class OnPromiseVm{
+    - String networkPhysical
 }
 
 abstract class Cloud{
@@ -48,20 +49,23 @@ class ProviderCloud {
 class AWS{}
 class AZURE{}
 class GCP{}
+class OnPromise{}
 
 Cloud <|-- AWS
 Cloud <|-- GCP
 Cloud <|-- AZURE
+Cloud <|-- OnPromise
 
-AWS --> AWSVm : create
-AZURE --> AzureVm : create
-GCP --> GCPVm : create
+' AWS --> AWSVm : create
+' AZURE --> AzureVm : create
+' GCP --> GCPVm : create
 
 Cloud --> ProviderCloud
 
 VM <|-- AzureVm
 VM <|-- GCPVm
 VM <|-- AWSVm
+VM <|-- OnPromiseVm
 
 AzureMachineType <-- AzureVm : has
 AWSMachineType <-- AWSVm : has

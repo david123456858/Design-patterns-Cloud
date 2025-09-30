@@ -39,7 +39,7 @@ class OnPromiseVm{
 
 abstract class Cloud{
 + getProviderVm()
-{abstract} IVm VmSupply(VM vm)
++ {abstract} ProvisionResult VmSupply(VM vm)
 }
 
 class ProviderCloud {
@@ -71,11 +71,21 @@ AzureMachineType <-- AzureVm : has
 AWSMachineType <-- AWSVm : has
 GCPMachineType <-- GCPVm : has 
 
-enum CloudProviderType {
-    AWS 
-    AZURE
-    GCP
-    PROMISE-ON
+
+
+enum statusResult {
+    SUCCESS
+    ERROR
 }
+
+class ProvisionResult {
+    - statusResult status
+    - VM vm
+    - string message
+}
+
+Cloud --> ProvisionResult: return
+statusResult <-- ProvisionResult : has
+
 
 @enduml

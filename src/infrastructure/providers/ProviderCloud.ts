@@ -7,7 +7,7 @@ export class ProviderCloud {
     this.methods = new Map([])
   }
 
-  public getProviderById (typeProvider: string): Cloud | undefined {
+  public getProvider (typeProvider: string): Cloud | undefined {
     return this.methods.get(typeProvider)
   }
 }

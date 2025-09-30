@@ -8,4 +8,30 @@ export abstract class VM {
     this.cpus = cpus
     this.disk = disk
   }
+
+  // Getters
+  getRam (): string {
+    return this.ram
+  }
+
+  getCpus (): string {
+    return this.cpus
+  }
+
+  getDisk (): string {
+    return this.disk
+  }
+
+  // Setters
+  setRam (ram: string): void {
+    this.ram = ram
+  }
+
+  setCpus (cpus: string): void {
+    this.cpus = cpus
+  }
+
+  setDisk (disk: string): void {
+    this.disk = disk
+  }
 }

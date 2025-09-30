@@ -1,6 +1,7 @@
-import { IsEnum, ValidateNested, Type } from 'class-validator'
+import { IsEnum, ValidateNested } from 'class-validator'
+import { Type, TypeHelpOptions } from 'class-transformer'
 import { CloudProviderType } from '../../../common/enums/ProviderType'
-import { DTOClass, providerCloudDto } from './ProviderCloudDto'
+import { providerCloudDto } from './ProviderCloudDto'
 import { VMDTO } from '.'
 
 export class ProvisionRequestDTO {
@@ -8,9 +9,11 @@ export class ProvisionRequestDTO {
     provider!: CloudProviderType
 
   @ValidateNested()
-  @Type((options) => {
-    const classDto = new providerCloudDto().getDto(options?.object?.provider)
-    return classDto
+  @Type((options?: TypeHelpOptions) => {
+    const provider = (options?.object as ProvisionRequestDTO).provider
+    const classDto = new providerCloudDto().getDto(provider)
+
+    return classDto ?? VMDTO
   })
-    propities!: DTOClass<VMDTO>
+    propities!: VMDTO
 }

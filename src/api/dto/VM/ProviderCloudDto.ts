@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import { AWSVMDTO, AzureVMDTO, GCPVMDTO, VMDTO } from '.'
 import { CloudProviderType } from '../../../common/enums/ProviderType'
@@ -22,6 +23,12 @@ export class providerCloudDto {
   }
 
   getDto (provider: CloudProviderType): DTOClass<VMDTO> | undefined {
+    const providerd = this.getDto(provider)
+
+    if (!providerd) {
+      console.warn(`Provider ${providerd} not found, returning base VMDTO`)
+    }
+
     return this.providers.get(provider)
   }
 }

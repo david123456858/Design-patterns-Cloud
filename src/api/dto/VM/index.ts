@@ -6,7 +6,7 @@ export abstract class VMDTO {
   @IsEnum(CloudProviderType)
     provider!: CloudProviderType
 }
-export class AWSVMDTO extends VMDTO {
+export class AWSVMDTO {
   @IsEnum(AWSMachineType)
     type!: AWSMachineType
 
@@ -20,7 +20,7 @@ export class AWSVMDTO extends VMDTO {
     ami!: string
 }
 
-export class AzureVMDTO extends VMDTO {
+export class AzureVMDTO {
   @IsEnum(AzureMachineType)
     type!: AzureMachineType
 
@@ -31,7 +31,7 @@ export class AzureVMDTO extends VMDTO {
     redVital!: string
 }
 
-export class GCPVMDTO extends VMDTO {
+export class GCPVMDTO {
   @IsEnum(GCPMachineType)
     type!: GCPMachineType
 

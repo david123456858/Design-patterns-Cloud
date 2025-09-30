@@ -1,6 +1,8 @@
 import { Router } from 'express'
 import { VMController } from '../controllers/VMController'
 import { VMProvisioningService } from '../../application/services/VMProvisioningService'
+import { validateDto } from '../middlware/validateDto'
+import { ProvisionRequestDTO } from '../dto/VM/provisioning'
 
 export class VMRoutes {
   public router: Router
@@ -15,7 +17,7 @@ export class VMRoutes {
 
   private configureRoutes (): void {
     // Ruta para aprovisionar una nueva VM
-    this.router.post('/provision', this.vmController.provisionVM)
+    this.router.post('/provision', validateDto(ProvisionRequestDTO), this.vmController.provisionVM)
 
     // Ruta para obtener el estado de una VM
     this.router.get('/:id/status', this.vmController.getVMStatus)

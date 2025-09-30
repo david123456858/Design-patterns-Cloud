@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
-import { AWSVMDTO, AzureVMDTO, GCPVMDTO, VMDTO } from '.'
+import { AWSVMDTO, AzureVMDTO, GCPVMDTO, VMDTO } from '../VM/index'
 import { CloudProviderType } from '../../../common/enums/ProviderType'
 
 export type DTOClass<T> = new (...args: any[]) => T // por revisar
@@ -8,8 +8,8 @@ export type DTOClass<T> = new (...args: any[]) => T // por revisar
 export class providerCloudDto {
   private static instance: providerCloudDto
 
-  private readonly providers: Map<CloudProviderType, DTOClass<VMDTO>> =
-    new Map<CloudProviderType, DTOClass<VMDTO>>([
+  private readonly providers: Map<CloudProviderType, any> =
+    new Map<CloudProviderType, any>([
       [CloudProviderType.AWS, AWSVMDTO],
       [CloudProviderType.AZURE, AzureVMDTO],
       [CloudProviderType.GCP, GCPVMDTO]
@@ -23,7 +23,7 @@ export class providerCloudDto {
   }
 
   getDto (provider: CloudProviderType): DTOClass<VMDTO> | undefined {
-    const providerd = this.getDto(provider)
+    const providerd = this.providers.get(provider)
 
     if (!providerd) {
       console.warn(`Provider ${providerd} not found, returning base VMDTO`)

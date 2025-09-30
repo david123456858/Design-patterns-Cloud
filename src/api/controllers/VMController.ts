@@ -5,7 +5,7 @@ export class VMController {
   constructor (private readonly VMService: VMProvisioningService) {}
 
   public async provisionVM (req: Request, res: Response, next: NextFunction): Promise<void> {
-
+    res.json({ message: req.body })
   }
 
   public async getVMStatus (req: Request, res: Response, next: NextFunction): Promise<void> {
@@ -13,6 +13,6 @@ export class VMController {
   }
 
   public async listVMs (req: Request, res: Response, next: NextFunction): Promise<void> {
-
+    res.json({ message: 'Bueno al parecer si funciona' })
   }
 }

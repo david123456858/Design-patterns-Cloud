@@ -5,7 +5,15 @@ export class VMController {
   constructor (private readonly VMService: VMProvisioningService) {}
 
   public async provisionVM (req: Request, res: Response, next: NextFunction): Promise<void> {
-    res.json({ message: req.body })
+    const dto = req.body
+
+    const result = await this.VMService.provisionVM(dto)
+
+    if (!result.success) {
+      res.status(result.status).json({ error: result.error })
+      return
+    }
+    res.status(result.status).json({ message: result.value })
   }
 
   public async getVMStatus (req: Request, res: Response, next: NextFunction): Promise<void> {

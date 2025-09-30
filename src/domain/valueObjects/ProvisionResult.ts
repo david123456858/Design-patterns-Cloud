@@ -1,7 +1,4 @@
-export enum StatusResult {
-  SUCCESS = 'SUCCESS',
-  ERROR = 'ERROR'
-}
+import { StatusResult } from '../../common/enums/StatusResult'
 
 export class ProvisionResult {
   private readonly status: StatusResult

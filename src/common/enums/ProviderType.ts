@@ -1,6 +1,6 @@
 export enum CloudProviderType {
   AWS = 'AWS',
-  AZURE = 'Azure',
+  AZURE = 'AZURE',
   GCP = 'GCP',
   ONPROMISE = 'OnPromise'
 }

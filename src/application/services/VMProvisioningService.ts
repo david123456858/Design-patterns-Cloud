@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import { ProvisionRequestDTO } from '../../api/dto/VM/provisioning'
 import { FailureProccess, SuccessProcess } from '../../common/utils/Result'
-import { Cloud } from '../../domain/entities/Cloud'
 import { IFailureProcess, ISuccessProcess } from '../../domain/interfaces/IResult'
 import { ProviderCloud } from '../../infrastructure/providers/ProviderCloud'
 
@@ -16,8 +15,13 @@ export class VMProvisioningService {
       const provider = this.cloudProvider.getProvider(dto.provider)
       if (!provider) return FailureProccess('We Dont have this service cloud', 400)
 
-      const result = provider.vmSupply(dto)
-      return SuccessProcess('Privisionado', 200)
+      const result = await provider.vmSupply(dto)
+
+      return SuccessProcess({
+        status: result.getStatus(),
+        infoVm: result.getVM(),
+        details: result.getMessage()
+      }, 200)
     } catch (error) {
       return FailureProccess('Error internal server', 500)
     }

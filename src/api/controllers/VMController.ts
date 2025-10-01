@@ -2,7 +2,9 @@ import { NextFunction, Request, Response } from 'express'
 import { VMProvisioningService } from '../../application/services/VMProvisioningService'
 
 export class VMController {
-  constructor (private readonly VMService: VMProvisioningService) {}
+  constructor (private readonly VMService: VMProvisioningService) {
+    this.provisionVM = this.provisionVM.bind(this)
+  }
 
   public async provisionVM (req: Request, res: Response, next: NextFunction): Promise<void> {
     const dto = req.body

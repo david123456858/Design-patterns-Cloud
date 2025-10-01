@@ -1,6 +1,7 @@
-import { VM } from './VM'
+
 import { ProvisionResult } from '../valueObjects/ProvisionResult'
+import { ProvisionRequestDTO } from '../../api/dto/VM/provisioning'
 
 export abstract class Cloud {
-  public abstract vmSupply (vm: VM): Promise<ProvisionResult>
+  public abstract vmSupply (vm: ProvisionRequestDTO): Promise<ProvisionResult>
 }

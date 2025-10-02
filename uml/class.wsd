@@ -57,9 +57,9 @@ Cloud <|-- GCP
 Cloud <|-- AZURE
 Cloud <|-- OnPromise
 
-' AWS --> AWSVm : create
-' AZURE --> AzureVm : create
-' GCP --> GCPVm : create
+AWS --> AWSVm : create
+AZURE --> AzureVm : create
+GCP --> GCPVm : create
 
 Cloud --> ProviderCloud
 

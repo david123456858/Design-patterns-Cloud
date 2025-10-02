@@ -1,0 +1,9 @@
+{
+  "provider": "GCP",
+  "properties": {
+    "type": "n1-standard-1",
+    "zone": "us-central1-a",
+    "diskBase": "pd-standard",
+    "project": "mi-proyecto-gcp"
+  }
+}

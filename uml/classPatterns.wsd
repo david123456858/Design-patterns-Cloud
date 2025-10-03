@@ -1,0 +1,92 @@
+@startuml cloud-factory
+abstract class VM {
+- String Ram
+- String CPUs
+- String disk
+}
+
+enum AWSMachineType{
+t2.micro 
+m5.large
+}
+enum AzureMachineType {
+Standard_B1s
+}
+enum GCPMachineType {
+n1-standard-1
+}
+
+class AWSVm {
+- AWSMachineType type
+- String Region
+- String VPC
+- String AMI
+}
+class AzureVm{
+- AzureMachineType type
+- String  resourceGroup
+- String redVital
+}
+class GCPVm{
+- GCPMachineType type
+- String zone
+- String diskBase
+- String project
+}
+class OnPromiseVm{
+    - String networkPhysical
+}
+
+abstract class Cloud{
++ getProviderVm()
++ {abstract} ProvisionResult VmSupply(VM vm)
+}
+
+class ProviderCloud {
+    - Map<String, Cloud> methods
+    + Cloud getProvider()
+}
+
+class AWS{}
+class AZURE{}
+class GCP{}
+class OnPromise{}
+
+Cloud <|-- AWS
+Cloud <|-- GCP
+Cloud <|-- AZURE
+Cloud <|-- OnPromise
+
+AWS --> AWSVm : create
+AZURE --> AzureVm : create
+GCP --> GCPVm : create
+
+Cloud --> ProviderCloud
+
+VM <|-- AzureVm
+VM <|-- GCPVm
+VM <|-- AWSVm
+VM <|-- OnPromiseVm
+
+AzureMachineType <-- AzureVm : has
+AWSMachineType <-- AWSVm : has
+GCPMachineType <-- GCPVm : has 
+
+
+
+enum statusResult {
+    SUCCESS
+    ERROR
+}
+
+class ProvisionResult {
+    - statusResult status
+    - VM vm
+    - string message
+}
+
+Cloud --> ProvisionResult: return
+statusResult <-- ProvisionResult : has
+
+
+@enduml

@@ -1,12 +1,10 @@
 export abstract class VM {
   protected ram: string
   protected cpus: string
-  protected disk: string
 
-  constructor (ram: string, cpus: string, disk: string) {
+  constructor (ram: string, cpus: string) {
     this.ram = ram
     this.cpus = cpus
-    this.disk = disk
   }
 
   // Getters
@@ -18,10 +16,6 @@ export abstract class VM {
     return this.cpus
   }
 
-  getDisk (): string {
-    return this.disk
-  }
-
   // Setters
   setRam (ram: string): void {
     this.ram = ram
@@ -29,9 +23,5 @@ export abstract class VM {
 
   setCpus (cpus: string): void {
     this.cpus = cpus
-  }
-
-  setDisk (disk: string): void {
-    this.disk = disk
   }
 }

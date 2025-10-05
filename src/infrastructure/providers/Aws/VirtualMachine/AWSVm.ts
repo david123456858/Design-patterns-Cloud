@@ -1,17 +1,16 @@
-import { AWSMachineType } from '../../../common/enums/MachineTypes'
-import { VM } from '../../../domain/entities/VM'
+import { AWSMachineType } from '../../../../common/enums/MachineTypes'
+import { VM } from '../../../../domain/entities/VM'
 
 export class AWSvm extends VM {
   constructor (
     ram: string,
     cpus: string,
-    disk: string,
     private type: AWSMachineType,
     private region: string,
     private VPC: string,
     private AMI: string
   ) {
-    super(ram, cpus, disk)
+    super(ram, cpus)
   }
 
   // Getters

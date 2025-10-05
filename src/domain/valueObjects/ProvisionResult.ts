@@ -5,9 +5,9 @@ export class ProvisionResult {
   private readonly vm: any // Aquí deberíamos usar el tipo VM pero lo mantenemos any por ahora
   private readonly message: string
 
-  constructor (status: StatusResult, vm: any, message: string) {
+  constructor (status: StatusResult, object: any, message: string) {
     this.status = status
-    this.vm = vm
+    this.vm = object
     this.message = message
   }
 

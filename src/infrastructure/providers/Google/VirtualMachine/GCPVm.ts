@@ -1,17 +1,16 @@
-import { GCPMachineType } from '../../../common/enums/MachineTypes'
-import { VM } from '../../../domain/entities/VM'
+import { GCPMachineType } from '../../../../common/enums/MachineTypes'
+import { VM } from '../../../../domain/entities/VM'
 
 export class GCPvm extends VM {
   constructor (
     ram: string,
     cpus: string,
-    disk: string,
     private _type: GCPMachineType,
     private _zone: string,
     private _diskBase: string,
     private _project: string
   ) {
-    super(ram, cpus, disk)
+    super(ram, cpus)
   }
 
   // Getter y Setter de type

@@ -1,16 +1,15 @@
-import { AzureMachineType } from '../../../common/enums/MachineTypes'
-import { VM } from '../../../domain/entities/VM'
+import { AzureMachineType } from '../../../../common/enums/MachineTypes'
+import { VM } from '../../../../domain/entities/VM'
 
 export class Azurevm extends VM {
   constructor (
     ram: string,
     cpus: string,
-    disk: string,
     private _type: AzureMachineType,
     private _resourceGroup: string,
     private _redVital: string
   ) {
-    super(ram, cpus, disk)
+    super(ram, cpus)
   }
 
   // Getter y Setter de type

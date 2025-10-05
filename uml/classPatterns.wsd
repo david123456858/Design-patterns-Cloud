@@ -1,19 +1,10 @@
 @startuml cloud-factory
+
+'------------- familias 1 virtualMachine ------------
 abstract class VM {
 - String Ram
 - String CPUs
 - String disk
-}
-
-enum AWSMachineType{
-t2.micro 
-m5.large
-}
-enum AzureMachineType {
-Standard_B1s
-}
-enum GCPMachineType {
-n1-standard-1
 }
 
 class AWSVm {
@@ -37,6 +28,73 @@ class OnPromiseVm{
     - String networkPhysical
 }
 
+enum AWSMachineType{
+    t2.micro 
+    m5.large
+}
+enum AzureMachineType {
+    Standard_B1s
+}
+enum GCPMachineType {
+    n1-standard-1
+}
+
+'------------- Familia 2 Network ---------------
+
+class Network {
+    
+}
+
+class AWSNetwork {
+    - String vpcId
+    - String subnet
+    - String IdsecurityGroup
+}
+
+class AzureNetwork {
+    - String virtualNetwork
+    - String subnetName
+    - String networkSecurityGroup
+}
+
+class GPCNetwork {
+    - String networkName
+    - String subnetworkName
+    - String firewallTag
+}
+
+class OnPromiseNetwork {
+    - String physicalInterface
+    - String vlanId
+    - String firewallPolicy
+}
+'-----------------------------------------------
+
+
+
+
+'------------- Familia 3 Disk ------------------
+abstract class disk {
+
+}
+
+class AWSDisk {
+    
+}
+
+class AzureDisk {
+    
+}
+
+class GPCDisk {
+
+}
+
+'-----------------------------------------------
+
+
+'----------------- Fabricas --------------------
+
 abstract class Cloud{
 + getProviderVm()
 + {abstract} ProvisionResult VmSupply(VM vm)
@@ -52,25 +110,10 @@ class AZURE{}
 class GCP{}
 class OnPromise{}
 
-Cloud <|-- AWS
-Cloud <|-- GCP
-Cloud <|-- AZURE
-Cloud <|-- OnPromise
+'-----------------------------------------------
 
-AWS --> AWSVm : create
-AZURE --> AzureVm : create
-GCP --> GCPVm : create
 
-Cloud --> ProviderCloud
 
-VM <|-- AzureVm
-VM <|-- GCPVm
-VM <|-- AWSVm
-VM <|-- OnPromiseVm
-
-AzureMachineType <-- AzureVm : has
-AWSMachineType <-- AWSVm : has
-GCPMachineType <-- GCPVm : has 
 
 
 
@@ -85,8 +128,30 @@ class ProvisionResult {
     - string message
 }
 
-Cloud --> ProvisionResult: return
-statusResult <-- ProvisionResult : has
+
+' Cloud <|-- AWS
+' Cloud <|-- GCP
+' Cloud <|-- AZURE
+' Cloud <|-- OnPromise
+
+' AWS --> AWSVm : create
+' AZURE --> AzureVm : create
+' GCP --> GCPVm : create
+
+' Cloud --> ProviderCloud
+
+' VM <|-- AzureVm
+' VM <|-- GCPVm
+' VM <|-- AWSVm
+' VM <|-- OnPromiseVm
+
+' AzureMachineType <-- AzureVm : has
+' AWSMachineType <-- AWSVm : has
+' GCPMachineType <-- GCPVm : has 
+
+
+' Cloud --> ProvisionResult: return
+' statusResult <-- ProvisionResult : has
 
 
 @enduml

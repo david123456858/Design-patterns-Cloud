@@ -2,9 +2,12 @@
 
 '------------- familias 1 virtualMachine ------------
 abstract class VM {
-- String Ram
-- String CPUs
-- String disk
+# String Ram
+# String CPUs
+# String disk
+
++ getters()
++ setters()
 }
 
 class AWSVm {
@@ -12,20 +15,28 @@ class AWSVm {
 - String Region
 - String VPC
 - String AMI
++ getters()
++ setters()
 }
 class AzureVm{
 - AzureMachineType type
 - String  resourceGroup
 - String redVital
++ getters()
++ setters()
 }
 class GCPVm{
 - GCPMachineType type
 - String zone
 - String diskBase
 - String project
++ getters()
++ setters()
 }
 class OnPromiseVm{
     - String networkPhysical
+    + getters()
+    + setters()
 }
 
 enum AWSMachineType{
@@ -41,53 +52,97 @@ enum GCPMachineType {
 
 '------------- Familia 2 Network ---------------
 
-class Network {
-    
+abstract class Network {
+    # String networkName
+    # String subnetName
+    # String securityPolicy
+    + getters()
+    + setters()
 }
 
 class AWSNetwork {
     - String vpcId
     - String subnet
     - String IdsecurityGroup
+    + getters()
+    + setters()
 }
 
 class AzureNetwork {
     - String virtualNetwork
     - String subnetName
     - String networkSecurityGroup
+    + getters()
+    + setters()
 }
 
 class GPCNetwork {
     - String networkName
     - String subnetworkName
     - String firewallTag
+    + getters()
+    + setters()
 }
 
 class OnPromiseNetwork {
     - String physicalInterface
     - String vlanId
     - String firewallPolicy
+    + getters()
+    + setters()
 }
 '-----------------------------------------------
 
 
-
-
 '------------- Familia 3 Disk ------------------
-abstract class disk {
-
+abstract class Disk {
+    # String scale
+    # int sizeGB
+    + getters()
+    + setters()
 }
 
 class AWSDisk {
-    
+    - volumeTypeAWS type
+    - boolean encrypted
+    + getters()
+    + setters()
 }
 
 class AzureDisk {
-    
+    - diskSku type
+    - boolean autoDelete
+    + getters()
+    + setters()
 }
 
 class GPCDisk {
+    - diskTypeGPC type
+    - boolean autoDelete
+    + getters()
+    + setters()
+}
 
+class OnPromiseDisk{
+    - String storagePoo
+    - String raidLevel
+    + getters()
+    + setters()
+}
+
+enum volumeTypeAWS {
+    gp2 
+    io1
+}
+
+enum diksSku {
+    Standard_LRS
+    Premium_LRS
+}
+
+enum diskTypeGPC {
+    pd-standard
+    pd-ssd
 }
 
 '-----------------------------------------------
@@ -96,8 +151,9 @@ class GPCDisk {
 '----------------- Fabricas --------------------
 
 abstract class Cloud{
-+ getProviderVm()
 + {abstract} ProvisionResult VmSupply(VM vm)
++ {abstract} ProvisionResult NetWorkSupply(Network net)
++ {abstract} ProvisionResult DiskSupply(Disk disk)
 }
 
 class ProviderCloud {
@@ -112,11 +168,6 @@ class OnPromise{}
 
 '-----------------------------------------------
 
-
-
-
-
-
 enum statusResult {
     SUCCESS
     ERROR
@@ -128,30 +179,57 @@ class ProvisionResult {
     - string message
 }
 
+' ----------------- Relaciones --------------------
 
-' Cloud <|-- AWS
-' Cloud <|-- GCP
-' Cloud <|-- AZURE
-' Cloud <|-- OnPromise
+Cloud <|-- AWS
+Cloud <|-- GCP
+Cloud <|-- AZURE
+Cloud <|-- OnPromise
 
-' AWS --> AWSVm : create
-' AZURE --> AzureVm : create
-' GCP --> GCPVm : create
+GCP --> GCPVm : create
+GCP --> GPCDisk : create
+GCP --> GPCNetwork : create
 
-' Cloud --> ProviderCloud
+AWS --> AWSVm : create
+AWS --> AWSNetwork : create
+AWS --> AWSDisk : create
 
-' VM <|-- AzureVm
-' VM <|-- GCPVm
-' VM <|-- AWSVm
-' VM <|-- OnPromiseVm
+AZURE --> AzureNetwork : create
+AZURE --> AzureVm : create
+AZURE --> AzureDisk : create
 
-' AzureMachineType <-- AzureVm : has
-' AWSMachineType <-- AWSVm : has
-' GCPMachineType <-- GCPVm : has 
+OnPromise --> OnPromiseVm : create 
+OnPromise --> OnPromiseDisk : create
+OnPromise --> OnPromiseNetwork : create
+
+Cloud --> ProviderCloud
+
+VM <|-- AzureVm
+VM <|-- GCPVm
+VM <|-- AWSVm
+VM <|-- OnPromiseVm
+
+Network <|-- AzureNetwork
+Network <|-- AWSNetwork
+Network <|-- GPCNetwork
+Network <|-- OnPromiseNetwork
+
+Disk <|-- AWSDisk
+Disk <|-- OnPromiseDisk
+Disk <|-- AzureDisk
+Disk <|-- GPCDisk
+
+AzureMachineType <-- AzureVm : has
+AWSMachineType <-- AWSVm : has
+GCPMachineType <-- GCPVm : has 
+
+AWSDisk --> volumeTypeAWS : has
+AzureDisk --> diksSku : has
+GPCDisk --> diskTypeGPC : has
 
 
-' Cloud --> ProvisionResult: return
-' statusResult <-- ProvisionResult : has
+Cloud --> ProvisionResult: return
+statusResult <-- ProvisionResult : has
 
 
 @enduml

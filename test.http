@@ -1,7 +1,7 @@
 {
   "// AWS Example": {
     "provider": "AWS",
-    "propities": {
+    "properties": {
       "type": "t2.micro",
       "region": "us-east-1",
       "ami": "ami-0abcdef1234567890",
@@ -24,7 +24,7 @@
 
   "// Azure Example": {
     "provider": "AZURE",
-    "propities": {
+    "properties": {
       "type": "Standard_B1s",
       "resourceGroup": "my-resource-group",
       "redVital": "my-vnet",
@@ -47,7 +47,7 @@
 
   "// GCP Example": {
     "provider": "GCP",
-    "propities": {
+    "properties": {
       "type": "n1-standard-1",
       "zone": "us-central1-a",
       "project": "my-gcp-project",

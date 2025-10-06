@@ -1,5 +1,7 @@
 import { AWSMachineType } from '../../../../common/enums/MachineTypes'
 import { VM } from '../../../../domain/entities/VM'
+import { AWSDisk } from '../Disk/AWSDisk'
+import { AWSNetwork } from '../NetWork/AWSNetwork'
 
 export class AWSvm extends VM {
   constructor (
@@ -7,8 +9,9 @@ export class AWSvm extends VM {
     cpus: string,
     private type: AWSMachineType,
     private region: string,
-    private VPC: string,
-    private AMI: string
+    private AMI: string,
+    private readonly network: AWSNetwork,
+    private readonly disk: AWSDisk
   ) {
     super(ram, cpus)
   }
@@ -22,10 +25,6 @@ export class AWSvm extends VM {
     return this.region
   }
 
-  getVPC (): string {
-    return this.VPC
-  }
-
   getAMI (): string {
     return this.AMI
   }
@@ -37,10 +36,6 @@ export class AWSvm extends VM {
 
   setRegion (region: string): void {
     this.region = region
-  }
-
-  setVPC (VPC: string): void {
-    this.VPC = VPC
   }
 
   setAMI (AMI: string): void {

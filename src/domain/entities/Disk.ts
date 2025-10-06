@@ -1,10 +1,12 @@
 export abstract class Disk {
+  protected idDisk: string
   protected scale: string
   protected sizeGB: number
 
-  constructor (scale: string, sizeGB: number) {
+  constructor (id: string, scale: string, sizeGB: number) {
     this.scale = scale
     this.sizeGB = sizeGB
+    this.idDisk = id
   }
 
   // Getters
@@ -14,6 +16,14 @@ export abstract class Disk {
 
   getSizeGB (): number {
     return this.sizeGB
+  }
+
+  getIdDisk (): string {
+    return this.idDisk
+  }
+
+  setIdDisk (id: string): void {
+    this.idDisk = id
   }
 
   // Setters

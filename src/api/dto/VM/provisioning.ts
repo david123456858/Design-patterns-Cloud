@@ -11,5 +11,5 @@ export class ProvisionRequestDTO extends VMDTO {
 
     return classDto ?? VMDTO
   })
-    propities!: VMDTO
+    propities!: any
 }

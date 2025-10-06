@@ -6,12 +6,13 @@ export class GPCDisk extends Disk {
   private autoDelete: boolean
 
   constructor (
+    idDisk: string,
     scale: string,
     sizeGB: number,
     type: diskTypeGPC,
     autoDelete: boolean
   ) {
-    super(scale, sizeGB)
+    super(idDisk, scale, sizeGB)
     this.type = type
     this.autoDelete = autoDelete
   }

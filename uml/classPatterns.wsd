@@ -53,8 +53,7 @@ enum GCPMachineType {
 '------------- Familia 2 Network ---------------
 
 abstract class Network {
-    # String networkName
-    # String subnetName
+    # String idNetwork
     # String securityPolicy
     + getters()
     + setters()

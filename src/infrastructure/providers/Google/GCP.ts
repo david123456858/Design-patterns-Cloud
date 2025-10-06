@@ -16,18 +16,20 @@ export class GCP extends Cloud {
     return new ProvisionResult(StatusResult.SUCCESS, diskInstance, 'Disk Created')
   }
 
-  public async netWorkSupply (net: GPCNetwork): Promise<ProvisionResult> {
+  public async netWorkSupply (net: any): Promise<ProvisionResult> {
     const netWorkInstance = new GPCNetwork(
-      net.getIdNetwork(),
-      net.getSecurityPolicy(),
-      net.getNetworkName(),
-      net.getSubnetworkName(),
-      net.getFirewallTag())
+      net.network.idNetwork,
+      net.network.securityPolicy,
+      net.network.networkName,
+      net.network.subnetworkName,
+      net.network.firewallTag)
 
     return new ProvisionResult(StatusResult.SUCCESS, netWorkInstance, 'Disk Created')
   }
 
   public async vmSupply (vm: ProvisionRequestDTO): Promise<ProvisionResult> {
-    return new ProvisionResult(StatusResult.SUCCESS, vm, 'In Deployment...')
+    const net = await this.netWorkSupply(vm.propities)
+
+    return new ProvisionResult(StatusResult.SUCCESS, net.getVM(), 'In Deployment...')
   }
 }

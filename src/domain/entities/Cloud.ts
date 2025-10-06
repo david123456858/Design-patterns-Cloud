@@ -6,6 +6,6 @@ import { Network } from './Network'
 
 export abstract class Cloud {
   public abstract vmSupply (vm: ProvisionRequestDTO): Promise<ProvisionResult>
-  public abstract diskSupply (disk: Disk): Promise<ProvisionResult>
-  public abstract netWorkSupply (net: Network): Promise<ProvisionResult>
+  public abstract diskSupply (disk: any): Promise<ProvisionResult>
+  public abstract netWorkSupply (net: any): Promise<ProvisionResult>
 }

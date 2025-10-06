@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
-import { AWSVMDTO, AzureVMDTO, GCPVMDTO, VMDTO } from '../VM/index'
+import { AWSVMDTO, AzureVMDTO, GCPVMDTO } from '../VM/index'
 import { CloudProviderType } from '../../../common/enums/ProviderType'
 
 export type DTOClass<T> = new (...args: any[]) => T // por revisar
@@ -22,7 +22,7 @@ export class providerCloudDto {
     return this.instance
   }
 
-  getDto (provider: CloudProviderType): DTOClass<VMDTO> | undefined {
+  getDto (provider: CloudProviderType): any {
     const providerd = this.providers.get(provider)
 
     if (!providerd) {

@@ -19,10 +19,12 @@ export class VMProvisioningService {
 
       return SuccessProcess({
         status: result.getStatus(),
-        infoVm: result.getVM(),
+        infoVm: result.getObject(),
         details: result.getMessage()
       }, 200)
     } catch (error) {
+      console.log(error)
+
       return FailureProccess('Error internal server', 500)
     }
   }

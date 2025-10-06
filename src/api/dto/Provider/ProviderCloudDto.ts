@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
-import { AWSVMDTO, AzureVMDTO, GCPVMDTO } from '../VM/index'
+import { AWSVMDTO, AzureVMDTO, createVM, GCPVMDTO } from '../VM/index'
 import { CloudProviderType } from '../../../common/enums/ProviderType'
 
 export type DTOClass<T> = new (...args: any[]) => T // por revisar
@@ -8,7 +8,7 @@ export type DTOClass<T> = new (...args: any[]) => T // por revisar
 export class providerCloudDto {
   private static instance: providerCloudDto
 
-  private readonly providers: Map<CloudProviderType, any> =
+  private readonly providers: Map<CloudProviderType, createVM> =
     new Map<CloudProviderType, any>([
       [CloudProviderType.AWS, AWSVMDTO],
       [CloudProviderType.AZURE, AzureVMDTO],

@@ -1,4 +1,5 @@
-import { ProvisionRequestDTO } from '../../../api/dto/VM/provisioning'
+import { AWSVMDTO } from '../../../api/dto/VM'
+// import { ProvisionRequestDTO } from '../../../api/dto/VM/provisioning'
 import { StatusResult } from '../../../common/enums/StatusResult'
 import { Cloud } from '../../../domain/entities/Cloud'
 import { Disk } from '../../../domain/entities/Disk'
@@ -14,7 +15,7 @@ export class AWS extends Cloud {
     throw new Error('Method not implemented.')
   }
 
-  public async vmSupply (vm: ProvisionRequestDTO): Promise<ProvisionResult> {
+  public async vmSupply (vm: AWSVMDTO): Promise<ProvisionResult> {
     return new ProvisionResult(
       StatusResult.SUCCESS,
       vm,

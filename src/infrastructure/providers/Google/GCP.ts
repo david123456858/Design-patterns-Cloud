@@ -1,4 +1,5 @@
-import { ProvisionRequestDTO } from '../../../api/dto/VM/provisioning'
+import { GPCNetworkDto } from '../../../api/dto/NetWork'
+import { GCPVMDTO } from '../../../api/dto/VM'
 import { StatusResult } from '../../../common/enums/StatusResult'
 import { Cloud } from '../../../domain/entities/Cloud'
 import { ProvisionResult } from '../../../domain/valueObjects/ProvisionResult'
@@ -9,40 +10,44 @@ import { GCPvm } from './VirtualMachine/GCPVm'
 export class GCP extends Cloud {
   public async diskSupply (disk: any): Promise<ProvisionResult> {
     const diskInstance = new GPCDisk(
-      disk.disk.idDisk,
-      disk.disk.scale,
-      disk.disk.sizeGB,
-      disk.disk.type,
-      disk.disk.autoDelete
+      disk.idDisk,
+      disk.scale,
+      disk.sizeGB,
+      disk.type,
+      disk.autoDelete
     )
 
     return new ProvisionResult(StatusResult.SUCCESS, diskInstance, 'Disk Created')
   }
 
-  public async netWorkSupply (net: any): Promise<ProvisionResult> {
-    const netWorkInstance = new GPCNetwork(
-      net.network.idNetwork,
-      net.network.securityPolicy,
-      net.network.networkName,
-      net.network.subnetworkName,
-      net.network.firewallTag)
+  public async netWorkSupply (net: GPCNetworkDto): Promise<ProvisionResult> {
+    // const netWorkInstance = new GPCNetwork(
+    //   net.idNetwork,
+    //   net.securityPolicy,
+    //   net.networkName,
+    //   net.subnetworkName,
+    //   net.firewallTag
+    // )
 
-    return new ProvisionResult(StatusResult.SUCCESS, netWorkInstance, 'Network Created')
+    console.log(net)
+
+    return new ProvisionResult(StatusResult.SUCCESS, 'etWorkInstance', 'Network Created')
   }
 
-  public async vmSupply (vm: ProvisionRequestDTO): Promise<ProvisionResult> {
-    const net = await this.netWorkSupply(vm.propities)
-    const disk = await this.diskSupply(vm.propities)
+  public async vmSupply (vm: GCPVMDTO): Promise<ProvisionResult> {
+    // const net = await this.netWorkSupply(vm.network)
+    // const disk = await this.diskSupply(vm.disk)
+    console.log(vm)
 
-    const vmInstance = new GCPvm(
-      '64GB',
-      '24',
-      vm.propities.type,
-      vm.propities.zone,
-      vm.propities.project,
-      net.getVM(),
-      disk.getVM())
+    // const vmInstance = new GCPvm(
+    //   '64GB',
+    //   '24',
+    //   vm.type,
+    //   vm.zone,
+    //   vm.project,
+    //   net.getObject(),
+    //   disk.getObject())
 
-    return new ProvisionResult(StatusResult.SUCCESS, vmInstance, 'In Deployment...')
+    return new ProvisionResult(StatusResult.SUCCESS, vm, 'In Deployment...')
   }
 }

@@ -10,7 +10,14 @@ export class ProviderCloud {
   private readonly methods: Map<string, Cloud>
 
   constructor () {
-    this.methods = new Map([['AWS', new AWS()], ['AZURE', new AZURE()], ['GCP', new GCP()], ['OnPromise', new OnPromise()]])
+    const providers: Array<[string, Cloud]> = [
+      ['AWS', new AWS()],
+      ['AZURE', new AZURE()],
+      ['GCP', new GCP()],
+      ['OnPromise', new OnPromise()]
+    ]
+
+    this.methods = new Map(providers)
   }
 
   public getProvider (typeProvider: string): Cloud | undefined {

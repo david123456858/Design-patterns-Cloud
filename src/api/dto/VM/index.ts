@@ -66,3 +66,8 @@ export class GCPVMDTO {
   @Type(() => GPCNetworkDto)
     network!: GPCNetworkDto
 }
+
+export type createVM =
+  | AWSVMDTO
+  | AzureVMDTO
+  | GCPVMDTO

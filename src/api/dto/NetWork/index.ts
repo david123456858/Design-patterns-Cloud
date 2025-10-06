@@ -1,23 +1,42 @@
+import { IsString } from 'class-validator'
 
 export abstract class NetworkDto {
-  idNetwork!: string
-  securityPolicy!: string
+  @IsString()
+    idNetwork!: string
+
+  @IsString()
+    securityPolicy!: string
 }
 
 export class GPCNetworkDto extends NetworkDto {
-  networkName!: string
-  subnetworkName!: string
-  firewallTag!: string
+  @IsString()
+    networkName!: string
+
+  @IsString()
+    subnetworkName!: string
+
+  @IsString()
+    firewallTag!: string
 }
 
 export class AzureNetworKDto extends NetworkDto {
-  subnetName!: string
-  virtualNetwork!: string
-  networkSecurityGroup!: string
+  @IsString()
+    subnetName!: string
+
+  @IsString()
+    virtualNetwork!: string
+
+  @IsString()
+    networkSecurityGroup!: string
 }
 
 export class AWSNetworkDto extends NetworkDto {
-  vcpId!: string
-  subnet!: string
-  IdsecurityGroup!: string
+  @IsString()
+    vcpId!: string
+
+  @IsString()
+    subnet!: string
+
+  @IsString()
+    IdsecurityGroup!: string
 }

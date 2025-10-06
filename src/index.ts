@@ -5,7 +5,7 @@ import { Server } from './api/server/Server'
 
 async function main (): Promise<void> {
   try {
-    const server = new Server()
+    const server = Server.instance
     server.listen()
   } catch (error) {
     console.log('Error al iniciar el servidor:', error)

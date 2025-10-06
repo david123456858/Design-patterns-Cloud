@@ -1,14 +1,17 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import express, { Application, Request, Response } from 'express'
 import { Routes } from '../routes'
 import cors from 'cors'
 import morgan from 'morgan'
 
 export class Server {
+  private static _instance: Server // patron singlenton
+
   private readonly app: Application
   private readonly port: string
   private readonly route: Routes
 
-  constructor () {
+  private constructor () {
     this.app = express()
     this.port = '3000'
     this.route = new Routes()
@@ -38,5 +41,13 @@ export class Server {
     this.app.listen(this.port, () => {
       console.log(`Servidor corriendo en puerto http://localhost:${this.port}`)
     })
+  }
+
+  public static get instance (): Server {
+    if (!this._instance) {
+      this._instance = new Server()
+      return this._instance
+    }
+    return this._instance
   }
 }

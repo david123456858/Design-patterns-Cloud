@@ -1,7 +1,7 @@
 import { IsBoolean, IsEnum, IsNumber, IsString } from 'class-validator'
 import { DiskSku, diskTypeGPC, volumeTypeAWS } from '../../../common/enums/DiskTypes'
 
-abstract class DISKDTO {
+export abstract class DISKDTO {
   @IsString()
     idDisk!: string
 
@@ -28,7 +28,7 @@ export class AzureDiskDto extends DISKDTO {
     autoDelete!: boolean
 }
 
-export class GCPDisk {
+export class GCPDisk extends DISKDTO {
   @IsEnum(diskTypeGPC)
     type!: diskTypeGPC
 

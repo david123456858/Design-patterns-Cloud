@@ -1,26 +1,70 @@
 {
-"provider": "AWS",
-  "propities": {
-    "type": "t2.micro",
-    "region": "us-east-1",
-    "vpc": "vpc-123456",
-    "ami": "ami-0abcdef1234567890"
-  }
-}
-{
-  "provider": "AZURE",
-  "propities": {
-    "type": "Standard_B1s",
-    "resourceGroup": "rg-prueba",
-    "redVital": "vnet-prueba"
-  }
-}
-{
-  "provider": "GCP",
-  "propities": {
-    "type": "n1-standard-1",
-    "zone": "us-central1-a",
-    "diskBase": "pd-standard",
-    "project": "mi-proyecto-gcp"
+  "// AWS Example": {
+    "provider": "AWS",
+    "propities": {
+      "type": "t2.micro",
+      "region": "us-east-1",
+      "ami": "ami-0abcdef1234567890",
+      "network": {
+        "idNetwork": "net-aws-001",
+        "securityPolicy": "default-policy",
+        "vcpId": "vpc-123456",
+        "subnet": "subnet-123456",
+        "IdsecurityGroup": "sg-123456"
+      },
+      "disk": {
+        "idDisk": "disk-aws-001",
+        "scale": "standard",
+        "sizeGB": 50,
+        "type": "gp2",
+        "encrypted": true
+      }
+    }
+  },
+
+  "// Azure Example": {
+    "provider": "AZURE",
+    "propities": {
+      "type": "Standard_B1s",
+      "resourceGroup": "my-resource-group",
+      "redVital": "my-vnet",
+      "network": {
+        "idNetwork": "net-azure-001",
+        "securityPolicy": "azure-policy",
+        "subnetName": "default-subnet",
+        "virtualNetwork": "my-vnet",
+        "networkSecurityGroup": "nsg-001"
+      },
+      "disk": {
+        "idDisk": "disk-azure-001",
+        "scale": "premium",
+        "sizeGB": 128,
+        "type": "Premium_LRS",
+        "autoDelete": true
+      }
+    }
+  },
+
+  "// GCP Example": {
+    "provider": "GCP",
+    "propities": {
+      "type": "n1-standard-1",
+      "zone": "us-central1-a",
+      "project": "my-gcp-project",
+      "network": {
+        "idNetwork": "net-gcp-001",
+        "securityPolicy": "gcp-policy",
+        "networkName": "default",
+        "subnetworkName": "default-subnet",
+        "firewallTag": "web-server"
+      },
+      "disk": {
+        "idDisk": "disk-gcp-001",
+        "scale": "standard",
+        "sizeGB": 100,
+        "type": "pd-standard",
+        "autoDelete": true
+      }
+    }
   }
 }

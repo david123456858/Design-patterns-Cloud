@@ -11,15 +11,19 @@ export class Azurevm extends VM {
   private readonly disk: AzureDisk
 
   constructor (
-    ram: string,
-    cpus: string,
+    vcpus: number,
+    memoryGB: number,
     type: AzureMachineType,
     resourceGroup: string,
     redVital: string,
     network: AzureNetwork,
-    disk: AzureDisk
+    disk: AzureDisk,
+    memoryOptimization: boolean = false,
+    diskOptimization: boolean = false,
+    keyPairName: string = '',
+    region: string = ''
   ) {
-    super(ram, cpus)
+    super(vcpus, memoryGB, memoryOptimization, diskOptimization, keyPairName, region)
     this._type = type
     this._resourceGroup = resourceGroup
     this._redVital = redVital

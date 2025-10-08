@@ -5,15 +5,18 @@ import { AWSNetwork } from '../NetWork/AWSNetwork'
 
 export class AWSvm extends VM {
   constructor (
-    ram: string,
-    cpus: string,
+    vcpus: number,
+    memoryGB: number,
     private type: AWSMachineType,
-    private region: string,
     private AMI: string,
     private readonly network: AWSNetwork,
-    private readonly disk: AWSDisk
+    private readonly disk: AWSDisk,
+    memoryOptimization: boolean = false,
+    diskOptimization: boolean = false,
+    keyPairName: string = '',
+    region: string = ''
   ) {
-    super(ram, cpus)
+    super(vcpus, memoryGB, memoryOptimization, diskOptimization, keyPairName, region)
   }
 
   // Getters

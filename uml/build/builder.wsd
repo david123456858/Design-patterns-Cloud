@@ -13,7 +13,6 @@ interface builderProviderVm{
     + getResult(): ProvisionResult                
 }
 
-
 class Director {
     - BuilderProviderVm builder
     + setBuilder(BuilderProviderVm)
@@ -23,19 +22,55 @@ class Director {
 }
 
 class ConcreteVmAws {
+- int vcpus
+- int memoryGB
+- boolean memoryOptimization
+- boolean diskOptimization
+- String keyPairName
+- String region
+- AWSMachineType type
+- String Region
+- String VPC
+- String AMI
 
+- AWS cloud
 }
 
 class ConcreteVmAzure {
-
+    - int vcpus
+    - int memoryGB
+    - boolean memoryOptimization
+    - boolean diskOptimization
+    - String keyPairName
+    - String region
+    - AzureMachineType machineType
+    - String resourceGroup
+    - String redVital
+    
+    - AZURE cloud
 }
 
 class ConcreteVmGpc {
-
+   - int vcpus
+    - int memoryGB
+    - boolean memoryOptimization
+    - boolean diskOptimization
+    - String keyPairName
+    - String region
+    - GCPMachineType machineType
+    - String zone
+    - String project
+    
+    - GCP cloud
 }
 
 class ConcreteVmOnPromise {
-
+- int vcpus
+- int memoryGB
+- boolean memoryOptimization
+- boolean diskOptimization
+- String keyPairName
+- String region
 }
 
 
@@ -60,23 +95,54 @@ class OnPromiseVm{
     - String networkPhysical
 }
 abstract class VM {
-- String Ram
-- String CPUs
-- String disk
+# int vcpus
+# int memoryGB
+# boolean memoryOptimization
+# boolean diskOptimization
+# String keyPairName
+# String region
 }
 
 
 enum AWSMachineType{
-t2.micro 
-m5.large
+    T3_MEDIUM
+    M5_LARGE
+    M5_XLARGE
+    
+    R5_LARGE
+    R5_XLARGE
+    R5_2XLARGE
+    
+    C5_LARGE
+    C5_XLARGE
+    C5_2XLARGE
 }
 enum AzureMachineType {
-Standard_B1s
+    D2S_V3
+    D4S_V3
+    D8S_V3
+    
+    E2S_V3
+    E4S_V3
+    E8S_V3
+    
+    F2S_V2
+    F4S_V2
+    F8S_V2
 }
 enum GCPMachineType {
-n1-standard-1
+    E2_STANDARD_2
+    E2_STANDARD_4
+    E2_STANDARD_8
+    
+    N2_HIGHMEM_2
+    N2_HIGHMEM_4
+    N2_HIGHMEM_8
+    
+    N2_HIGHCPU_2
+    N2_HIGHCPU_4
+    N2_HIGHCPU_8
 }
-
 
 VM <|-- AzureVm
 VM <|-- GCPVm
@@ -93,11 +159,11 @@ builderProviderVm <|.. ConcreteVmGpc
 builderProviderVm <|.. ConcreteVmOnPromise
 
 ConcreteVmAws --> AWSVm
-oncreteVmAzure --> AzureVm
+ConcreteVmAzure --> AzureVm
 ConcreteVmGpc --> GCPVm
 ConcreteVmOnPromise --> OnPromiseVm
 
-
 builderProviderVm <-- Director
+
 
 @enduml

@@ -15,7 +15,6 @@ abstract class VM {
 
 class AWSVm {
 - AWSMachineType type
-- String Region
 - String VPC
 - String AMI
 + getters()
@@ -88,17 +87,15 @@ enum GCPMachineType {
 '------------- Familia 2 Network ---------------
 
 abstract class Network {
-    # String region
-    # String[] firewallRules
-    # boolean publicIP
-    + getters()
+    # String region            
+    # String[] firewallRules   
+    # boolean publicIP         
     + setters()
 }
 
 class AWSNetwork {
     - String vpcId
     - String subnet
-    - String IdsecurityGroup
     + getters()
     + setters()
 }
@@ -106,7 +103,6 @@ class AWSNetwork {
 class AzureNetwork {
     - String virtualNetwork
     - String subnetName
-    - String networkSecurityGroup
     + getters()
     + setters()
 }
@@ -114,7 +110,6 @@ class AzureNetwork {
 class GPCNetwork {
     - String networkName
     - String subnetworkName
-    - String firewallTag
     + getters()
     + setters()
 }
@@ -131,12 +126,15 @@ class OnPromiseNetwork {
 
 '------------- Familia 3 Disk ------------------
 abstract class Disk {
-    # String region
-    # int iops
-    # int sizeGB
+    # String region          
+    # int iops              
+    # int sizeGB            
     + getters()
     + setters()
 }
+
+' Builder para Disk
+
 
 class AWSDisk {
     - volumeTypeAWS type
@@ -147,14 +145,12 @@ class AWSDisk {
 
 class AzureDisk {
     - diskSku type
-    - boolean autoDelete
     + getters()
     + setters()
 }
 
 class GPCDisk {
     - diskTypeGPC type
-    - boolean autoDelete
     + getters()
     + setters()
 }
@@ -269,48 +265,48 @@ statusResult <-- ProvisionResult : has
 
 
 
-' ========== BUILDER ==========
-interface BuilderProviderVm {
-    + reset()
-    + setVcpus(int vcpus)
-    + setMemoryGB(int memory)
-    + setMemoryOptimization(boolean)
-    + setDiskOptimization(boolean)
-    + setKeyPairName(string)
-    + setRegion(string)
-    + setNetworkConfig(...)
-    + setDiskConfig(...)
-    + getResult(): ProvisionResult
-}
+' ' ========== BUILDER ==========
+' interface BuilderProviderVm {
+'     + reset()
+'     + setVcpus(int vcpus)
+'     + setMemoryGB(int memory)
+'     + setMemoryOptimization(boolean)
+'     + setDiskOptimization(boolean)
+'     + setKeyPairName(string)
+'     + setRegion(string)
+'     + setNetworkConfig(...)
+'     + setDiskConfig(...)
+'     + getResult(): ProvisionResult
+' }
 
-class Director {
-    - BuilderProviderVm builder
-    + setBuilder(BuilderProviderVm)
-    + createStandard(string machineSize)
-    + createMemoryOpt(string machineSize)
-    + createComputeOpt(string machineSize)
-}
+' class Director {
+'     - BuilderProviderVm builder
+'     + setBuilder(BuilderProviderVm)
+'     + createStandard(string machineSize)
+'     + createMemoryOpt(string machineSize)
+'     + createComputeOpt(string machineSize)
+' }
 
-class ConcreteVmAws implements BuilderProviderVm {
-    - AWS cloud
-    - int vcpus
-    - int memoryGB
-    - ...
-}
+' class ConcreteVmAws implements BuilderProviderVm {
+'     - AWS cloud
+'     - int vcpus
+'     - int memoryGB
+'     - ...
+' }
 
-class ConcreteVmAzure implements BuilderProviderVm {
-    - AZURE cloud
-}
+' class ConcreteVmAzure implements BuilderProviderVm {
+'     - AZURE cloud
+' }
 
-class ConcreteVmGcp implements BuilderProviderVm {
-    - GCP cloud
-}
+' class ConcreteVmGcp implements BuilderProviderVm {
+'     - GCP cloud
+' }
 
 
-' ========== RELACIONES ==========
-Director --> BuilderProviderVm
-ConcreteVmAws --> AWS : usa
-ConcreteVmAzure --> AZURE : usa
-ConcreteVmGcp --> GCP : usa
+' ' ========== RELACIONES ==========
+' Director --> BuilderProviderVm
+' ConcreteVmAws --> AWS : usa
+' ConcreteVmAzure --> AZURE : usa
+' ConcreteVmGcp --> GCP : usa
 
 @enduml

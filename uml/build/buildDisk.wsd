@@ -1,0 +1,62 @@
+@startuml builder-disk
+
+interface BuilderProviderDisk {
+    + reset()
+    + setRegion(string region)
+    + setIops(int iops)
+    + setSizeGB(int size)
+    + getResult(): Disk
+}
+
+class DiskDirector {
+    - BuilderProviderDisk builder
+    + setBuilder(BuilderProviderDisk)
+    + createHighPerformanceDisk(string region, int size)
+    + createStandardDisk(string region, int size)
+}
+
+class ConcreteDiskAws implements BuilderProviderDisk {
+    - String region
+    - int iops
+    - int sizeGB
+    - volumeTypeAWS type    
+    - boolean encrypted     
+    + getResult(): ProvisionResult
+}
+
+
+abstract class Disk {
+    # String region          
+    # int iops              
+    # int sizeGB            
+    + getters()
+    + setters()
+}
+
+
+class AWSDisk {
+    - volumeTypeAWS type
+    - boolean encrypted
+    + getters()
+    + setters()
+}
+
+class AzureDisk {
+    - diskSku type
+    + getters()
+    + setters()
+}
+
+class GPCDisk {
+    - diskTypeGPC type
+    + getters()
+    + setters()
+}
+
+class OnPromiseDisk{
+    - String storagePoo
+    - String raidLevel
+    + getters()
+    + setters()
+}
+@enduml

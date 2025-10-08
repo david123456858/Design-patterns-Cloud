@@ -1,6 +1,7 @@
 export abstract class Network {
-  protected idNetwork: string
+  protected region: string
   protected securityPolicy: string
+  protected pubi
 
   constructor (idNetwork: string, securityPolicy: string) {
     this.idNetwork = idNetwork

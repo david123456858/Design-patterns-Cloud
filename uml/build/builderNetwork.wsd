@@ -1,0 +1,96 @@
+@startuml build-Network
+
+interface BuilderProviderNetwork {
+    + reset()
+    + setRegion(string region)
+    + setFirewallRules(string[] rules)
+    + setPublicIP(boolean hasPublicIP)
+    + getResult(): Network
+}
+
+class NetworkDirector {
+    - BuilderProviderNetwork builder
+    + setBuilder(BuilderProviderNetwork)
+    + createPublicNetwork(string region)
+    + createPrivateNetwork(string region)
+    + createSecureNetwork(string region)
+}
+
+class ConcreteNetworkAws implements BuilderProviderNetwork {
+    - String region
+    - String[] firewallRules
+    - boolean publicIP
+    - String vpcId          
+    - String subnet        
+    + getResult(): ProvisionResult
+}
+class ConcreteNetworkAzure implements BuilderProviderNetwork {
+    - String region
+    - String[] firewallRules
+    - boolean publicIP
+    - String virtualNetwork
+    - String subnetName  
+    + getResult(): ProvisionResult
+
+}
+class ConcreteNetworkGCP implements BuilderProviderNetwork{
+    - String region
+    - String[] firewallRules
+    - boolean publicIP
+    - String networkName
+    - String subnetworkName 
+    + getResult(): ProvisionResult
+    
+}
+class ConcreteNetworkOnPromise implements BuilderProviderNetwork{
+    - String region
+    - String[] firewallRules
+    - boolean publicIP
+    - String physicalInterface
+    - String vlanId
+    - String firewallPolicy 
+    + getResult(): ProvisionResult
+    
+}
+
+abstract class Network {
+    # String region            
+    # String[] firewallRules   
+    # boolean publicIP         
+    + setters()
+}
+
+class AWSNetwork implements Network {
+    - String vpcId
+    - String subnet
+    + getters()
+    + setters()
+}
+
+class AzureNetwork implements Network {
+    - String virtualNetwork
+    - String subnetName
+    + getters()
+    + setters()
+}
+
+class GPCNetwork implements Network {
+    - String networkName
+    - String subnetworkName
+    + getters()
+    + setters()
+}
+
+class OnPromiseNetwork implements Network{
+    - String physicalInterface
+    - String vlanId
+    - String firewallPolicy
+    + getters()
+    + setters()
+}
+
+NetworkDirector --> BuilderProviderNetwork
+ConcreteNetworkAws --> AWSNetwork
+ConcreteNetworkAzure --> AzureNetwork
+ConcreteNetworkGCP --> GPCNetwork
+@enduml

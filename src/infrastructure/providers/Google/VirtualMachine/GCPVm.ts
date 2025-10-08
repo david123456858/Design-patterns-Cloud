@@ -5,15 +5,19 @@ import { GPCNetwork } from '../Network/NetGCP'
 
 export class GCPvm extends VM {
   constructor (
-    ram: string,
-    cpus: string,
+    vcpus: number,
+    memoryGB: number,
     private _type: GCPMachineType,
     private _zone: string,
     private _project: string,
     private readonly network: GPCNetwork,
-    private readonly disk: GPCDisk
+    private readonly disk: GPCDisk,
+    memoryOptimization: boolean = false,
+    diskOptimization: boolean = false,
+    keyPairName: string = '',
+    region: string = ''
   ) {
-    super(ram, cpus)
+    super(vcpus, memoryGB, memoryOptimization, diskOptimization, keyPairName, region)
   }
 
   // Getter y Setter de type

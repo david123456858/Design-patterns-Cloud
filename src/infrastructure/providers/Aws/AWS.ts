@@ -39,8 +39,7 @@ export class AWS extends Cloud {
     const builder = new ConcreteAwsVm()
     const director = new Directo()
     director.setBuilder(builder)
-    const provider = new providerMethodDirector(director, vm)
-
+    const provider = new providerMethodDirector(director, vm).getProvider(vm.typeMachine)
     return builder.getResult()
   }
 }

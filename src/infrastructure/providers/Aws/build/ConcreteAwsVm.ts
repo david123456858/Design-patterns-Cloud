@@ -26,7 +26,6 @@ export class ConcreteAwsVm implements BuilderProviderVm {
     this.memoryGB = 0
     this.memoryOptimization = false
     this.diskOptimization = false
-    this.keyPairName = ''
     this.machineType = AWSMachineType.M5_LARGE
   }
 

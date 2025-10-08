@@ -93,4 +93,5 @@ NetworkDirector --> BuilderProviderNetwork
 ConcreteNetworkAws --> AWSNetwork
 ConcreteNetworkAzure --> AzureNetwork
 ConcreteNetworkGCP --> GPCNetwork
+ConcreteNetworkOnPromise --> OnPromiseNetwork
 @enduml

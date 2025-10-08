@@ -6,8 +6,8 @@ export interface BuilderProviderVm {
   setMemoryGB: (memory: number) => void
   setMemoryOptimization: (hasMemoryOptimization: boolean) => void
   setDiskOptimization: (hasDiskOptimization: boolean) => void
+  configureProviderSpecific: (properties: any) => void
   setKeyPairName: (Name: string) => void
-  setRegion: (region: string) => void
   setNetworkConfig: (net: any) => void
   setDiskConfig: (disk: any) => void
   getResult: () => ProvisionResult

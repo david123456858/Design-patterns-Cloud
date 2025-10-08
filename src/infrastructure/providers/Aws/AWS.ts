@@ -1,5 +1,6 @@
 import { AWSNetworkDto } from '../../../api/dto/NetWork'
 import { AWSVMDTO } from '../../../api/dto/VM'
+import { ProvisionRequestDTO } from '../../../api/dto/VM/provisioning'
 import { Directo } from '../../../application/director/Director'
 import { StatusResult } from '../../../common/enums/StatusResult'
 import { Cloud } from '../../../domain/entities/Cloud'
@@ -32,15 +33,14 @@ export class AWS extends Cloud {
     return new ProvisionResult(StatusResult.SUCCESS, 'networkInstance', 'Network Created')
   }
 
-  public async vmSupply (vm: AWSVMDTO): Promise<ProvisionResult> {
+  public async vmSupply (vm: ProvisionRequestDTO): Promise<ProvisionResult> {
     // const net = await this.netWorkSupply(vm.network)
     // const disk = await this.diskSupply(vm.disk)
     const builder = new ConcreteAwsVm()
     const director = new Directo()
     director.setBuilder(builder)
-
     const provider = new providerMethodDirector(director, vm)
-    console.log(provider)
-    return new ProvisionResult(StatusResult.SUCCESS, 'vmInstance', 'VM in Deployment...')
+
+    return builder.getResult()
   }
 }

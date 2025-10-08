@@ -24,7 +24,7 @@ export abstract class VMDTOGENERIC {
     diskOptimization?: boolean
 
   @IsOptional()
-  @IsBoolean()
+  @IsString()
     keyPairName?: string
 }
 

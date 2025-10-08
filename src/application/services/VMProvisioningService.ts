@@ -15,7 +15,7 @@ export class VMProvisioningService {
       const provider = this.cloudProvider.getProvider(dto.provider)
       if (!provider) return FailureProccess('We Dont have this service cloud', 400)
 
-      const result = await provider.vmSupply(dto.properties)
+      const result = await provider.vmSupply(dto)
       return SuccessProcess({
         status: result.getStatus(),
         infoVm: result.getObject(),

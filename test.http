@@ -6,7 +6,7 @@ Content-Type: application/json
   "provider": "AWS",
   "typeMachine": "STANDARD",
   "properties": {
-    "type": "T3_MEDIUM",
+    "type": "t3.medium",
     "ami": "ami-12345678",
     "memoryOptimization": false,
     "diskOptimization": true,

@@ -1,7 +1,11 @@
 /* eslint-disable @typescript-eslint/consistent-type-assertions */
 import { AWSMachineType } from '../../../../common/enums/MachineTypes'
+import { StatusResult } from '../../../../common/enums/StatusResult'
 import { BuilderProviderVm } from '../../../../domain/interfaces/builderProvider'
 import { ProvisionResult } from '../../../../domain/valueObjects/ProvisionResult'
+import { AWSDisk } from '../Disk/AWSDisk'
+import { AWSNetwork } from '../NetWork/AWSNetwork'
+import { AWSvm } from '../VirtualMachine/AWSVm'
 
 export class ConcreteAwsVm implements BuilderProviderVm {
   private vcpus!: number
@@ -9,30 +13,13 @@ export class ConcreteAwsVm implements BuilderProviderVm {
   private memoryOptimization!: boolean
   private diskOptimization!: boolean
   private keyPairName: string = 'default-key'
-  private region!: string
   private machineType!: AWSMachineType
 
   private readonly ami!: string
-  private readonly vpcId?: string
 
-  private networkConfig?: {
-    idNetwork: string
-    securityPolicy: string
-    vpcId: string
-    subnet: string
-    IdsecurityGroup: string
-    firewallRules?: string[]
-    publicIP?: boolean
-  }
+  private networkConfig!: AWSNetwork
 
-  private diskConfig?: {
-    idDisk: string
-    scale: string
-    sizeGB: number
-    type: string
-    encrypted: boolean
-    iops?: number
-  }
+  private diskConfig!: AWSDisk
 
   reset (): void {
     this.vcpus = 0
@@ -40,7 +27,6 @@ export class ConcreteAwsVm implements BuilderProviderVm {
     this.memoryOptimization = false
     this.diskOptimization = false
     this.keyPairName = ''
-    this.region = ''
     this.machineType = AWSMachineType.M5_LARGE
   }
 
@@ -64,10 +50,6 @@ export class ConcreteAwsVm implements BuilderProviderVm {
     this.keyPairName = Name
   }
 
-  setRegion (region: string): void {
-    this.region = region
-  }
-
   setNetworkConfig (net: any): void {
     this.networkConfig = net
   }
@@ -76,7 +58,22 @@ export class ConcreteAwsVm implements BuilderProviderVm {
     this.diskConfig = disk
   }
 
+  configureProviderSpecific (properties: any): void {
+
+  }
+
   getResult (): ProvisionResult {
-    return {} as ProvisionResult
+    const IntanceVm = new AWSvm(
+      this.vcpus,
+      this.memoryGB,
+      this.machineType,
+      this.ami,
+      this.networkConfig,
+      this.diskConfig,
+      this.memoryOptimization,
+      this.diskOptimization,
+      this.keyPairName)
+
+    return new ProvisionResult(StatusResult.SUCCESS, IntanceVm, 'VM in Deployment...')
   }
 }

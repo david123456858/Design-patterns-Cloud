@@ -1,0 +1,103 @@
+@startuml cloud-builder
+
+interface builderProviderVm{
+     + reset()
+    + setVcpus(int vcpus)
+    + setMemoryGB(int memory)
+    + setMemoryOptimization(boolean)
+    + setDiskOptimization(boolean)
+    + setKeyPairName(string)
+    + setRegion(string)
+    + setNetworkConfig(...)
+    + setDiskConfig(...)
+    + getResult(): ProvisionResult                
+}
+
+
+class Director {
+    - BuilderProviderVm builder
+    + setBuilder(BuilderProviderVm)
+    + createStandard(string machineSize)
+    + createMemoryOpt(string machineSize)
+    + createComputeOpt(string machineSize)
+}
+
+class ConcreteVmAws {
+
+}
+
+class ConcreteVmAzure {
+
+}
+
+class ConcreteVmGpc {
+
+}
+
+class ConcreteVmOnPromise {
+
+}
+
+
+class AWSVm {
+- AWSMachineType type
+- String Region
+- String VPC
+- String AMI
+}
+class AzureVm{
+- AzureMachineType type
+- String  resourceGroup
+- String redVital
+}
+class GCPVm{
+- GCPMachineType type
+- String zone
+- String diskBase
+- String project
+}
+class OnPromiseVm{
+    - String networkPhysical
+}
+abstract class VM {
+- String Ram
+- String CPUs
+- String disk
+}
+
+
+enum AWSMachineType{
+t2.micro 
+m5.large
+}
+enum AzureMachineType {
+Standard_B1s
+}
+enum GCPMachineType {
+n1-standard-1
+}
+
+
+VM <|-- AzureVm
+VM <|-- GCPVm
+VM <|-- AWSVm
+VM <|-- OnPromiseVm
+
+AzureMachineType <-- AzureVm : has
+AWSMachineType <-- AWSVm : has
+GCPMachineType <-- GCPVm : has 
+
+builderProviderVm <|.. ConcreteVmAws
+builderProviderVm <|.. ConcreteVmAzure
+builderProviderVm <|.. ConcreteVmGpc
+builderProviderVm <|.. ConcreteVmOnPromise
+
+ConcreteVmAws --> AWSVm
+oncreteVmAzure --> AzureVm
+ConcreteVmGpc --> GCPVm
+ConcreteVmOnPromise --> OnPromiseVm
+
+
+builderProviderVm <-- Director
+
+@enduml

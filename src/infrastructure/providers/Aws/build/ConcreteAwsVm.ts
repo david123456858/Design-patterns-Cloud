@@ -1,51 +1,79 @@
 /* eslint-disable @typescript-eslint/consistent-type-assertions */
+import { AWSMachineType } from '../../../../common/enums/MachineTypes'
 import { BuilderProviderVm } from '../../../../domain/interfaces/builderProvider'
 import { ProvisionResult } from '../../../../domain/valueObjects/ProvisionResult'
-import { AWS } from '../AWS'
-import { AWSvm } from '../VirtualMachine/AWSVm'
 
 export class ConcreteAwsVm implements BuilderProviderVm {
-  private readonly provider: AWS
-  private readonly product: AWSvm
+  private vcpus!: number
+  private memoryGB!: number
+  private memoryOptimization!: boolean
+  private diskOptimization!: boolean
+  private keyPairName: string = 'default-key'
+  private region!: string
+  private machineType!: AWSMachineType
 
-  private constructor () {
-    this.provider = new AWS()
-    this.reset()
+  private readonly ami!: string
+  private readonly vpcId?: string
+
+  private networkConfig?: {
+    idNetwork: string
+    securityPolicy: string
+    vpcId: string
+    subnet: string
+    IdsecurityGroup: string
+    firewallRules?: string[]
+    publicIP?: boolean
+  }
+
+  private diskConfig?: {
+    idDisk: string
+    scale: string
+    sizeGB: number
+    type: string
+    encrypted: boolean
+    iops?: number
   }
 
   reset (): void {
-
+    this.vcpus = 0
+    this.memoryGB = 0
+    this.memoryOptimization = false
+    this.diskOptimization = false
+    this.keyPairName = ''
+    this.region = ''
+    this.machineType = AWSMachineType.M5_LARGE
   }
 
   setVcpus (vcpus: number): void {
+    this.vcpus = vcpus
   }
 
   setMemoryGB (memory: number): void {
-    // lógica para configurar memoria
+    this.memoryGB = memory
   }
 
   setMemoryOptimization (hasMemoryOptimization: boolean): void {
-    // lógica para optimización de memoria
+    this.memoryOptimization = hasMemoryOptimization
   }
 
   setDiskOptimization (hasDiskOptimization: boolean): void {
-    // lógica para optimización de disco
+    this.diskOptimization = hasDiskOptimization
   }
 
   setKeyPairName (Name: string): void {
-    // lógica para asignar KeyPair
+    this.keyPairName = Name
   }
 
   setRegion (region: string): void {
-    // lógica para región
+    this.region = region
   }
 
   setNetworkConfig (net: any): void {
-    // lógica para red
+    this.networkConfig = net
   }
 
   setDiskConfig (disk: any): void {
-    // lógica para disco
+    this.diskConfig = disk
   }
 
   getResult (): ProvisionResult {

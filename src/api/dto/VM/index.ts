@@ -4,18 +4,25 @@ import { AWSMachineType, AzureMachineType, GCPMachineType } from '../../../commo
 import { AWSNetworkDto, AzureNetworKDto, GPCNetworkDto } from '../NetWork'
 import { AWSDiskDto, AzureDiskDto, GCPDisk } from '../Disk'
 import { Type } from 'class-transformer'
+import { typeMachine } from '../../../common/enums/typeMahine'
 
 export abstract class VMDTO {
   @IsEnum(CloudProviderType)
     provider!: CloudProviderType
+
+  @IsEnum(typeMachine)
+    typeMachine!: typeMachine
+}
+
+export abstract class VMDTOGENERIC {
+  memoryOptimization?: boolean
+  diskOptimization?: boolean
+  keyPairName?: string
 }
 
 export class AWSVMDTO {
   @IsEnum(AWSMachineType)
     type!: AWSMachineType
-
-  @IsString()
-    region!: string
 
   @IsString()
     ami!: string

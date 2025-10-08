@@ -20,10 +20,9 @@ export class Azurevm extends VM {
     disk: AzureDisk,
     memoryOptimization: boolean = false,
     diskOptimization: boolean = false,
-    keyPairName: string = '',
-    region: string = ''
+    keyPairName: string = ''
   ) {
-    super(vcpus, memoryGB, memoryOptimization, diskOptimization, keyPairName, region)
+    super(vcpus, memoryGB, memoryOptimization, diskOptimization, keyPairName)
     this._type = type
     this._resourceGroup = resourceGroup
     this._redVital = redVital

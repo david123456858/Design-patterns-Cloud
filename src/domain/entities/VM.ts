@@ -4,22 +4,19 @@ export abstract class VM {
   protected memoryOptimization: boolean
   protected diskOptimization: boolean
   protected keyPairName: string
-  protected region: string
 
   constructor (
     vcpus: number,
     memoryGB: number,
     memoryOptimization: boolean = false,
     diskOptimization: boolean = false,
-    keyPairName: string = '',
-    region: string = ''
+    keyPairName: string = ''
   ) {
     this.vcpus = vcpus
     this.memoryGB = memoryGB
     this.memoryOptimization = memoryOptimization
     this.diskOptimization = diskOptimization
     this.keyPairName = keyPairName
-    this.region = region
   }
 
   // Getters
@@ -43,10 +40,6 @@ export abstract class VM {
     return this.keyPairName
   }
 
-  getRegion (): string {
-    return this.region
-  }
-
   // Setters
   setVcpus (vcpus: number): void {
     this.vcpus = vcpus
@@ -66,9 +59,5 @@ export abstract class VM {
 
   setKeyPairName (keyPairName: string): void {
     this.keyPairName = keyPairName
-  }
-
-  setRegion (region: string): void {
-    this.region = region
   }
 }

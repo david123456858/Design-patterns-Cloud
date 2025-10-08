@@ -14,10 +14,9 @@ export class GCPvm extends VM {
     private readonly disk: GPCDisk,
     memoryOptimization: boolean = false,
     diskOptimization: boolean = false,
-    keyPairName: string = '',
-    region: string = ''
+    keyPairName: string = ''
   ) {
-    super(vcpus, memoryGB, memoryOptimization, diskOptimization, keyPairName, region)
+    super(vcpus, memoryGB, memoryOptimization, diskOptimization, keyPairName)
   }
 
   // Getter y Setter de type

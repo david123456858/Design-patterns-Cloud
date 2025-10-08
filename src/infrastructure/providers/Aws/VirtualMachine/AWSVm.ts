@@ -13,19 +13,14 @@ export class AWSvm extends VM {
     private readonly disk: AWSDisk,
     memoryOptimization: boolean = false,
     diskOptimization: boolean = false,
-    keyPairName: string = '',
-    region: string = ''
+    keyPairName: string = ''
   ) {
-    super(vcpus, memoryGB, memoryOptimization, diskOptimization, keyPairName, region)
+    super(vcpus, memoryGB, memoryOptimization, diskOptimization, keyPairName)
   }
 
   // Getters
   getType (): AWSMachineType {
     return this.type
-  }
-
-  getRegion (): string {
-    return this.region
   }
 
   getAMI (): string {
@@ -35,10 +30,6 @@ export class AWSvm extends VM {
   // Setters
   setType (type: AWSMachineType): void {
     this.type = type
-  }
-
-  setRegion (region: string): void {
-    this.region = region
   }
 
   setAMI (AMI: string): void {

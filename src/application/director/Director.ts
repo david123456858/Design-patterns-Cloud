@@ -18,6 +18,7 @@ export class Directo {
     this.builder.setKeyPairName(vm.properties.keyPairName)
     this.builder.setDiskOptimization(vm.properties.memoryOptimization)
     this.builder.setMemoryOptimization(vm.properties.diskOptimization)
+    this.builder.setTypeMachine(vm.properties.type)
     this.builder.setNetworkConfig(vm.properties.network)
     this.builder.setDiskConfig(vm.properties.disk)
   }
@@ -30,6 +31,7 @@ export class Directo {
     this.builder.setKeyPairName(vm.properties.keyPairName)
     this.builder.setDiskOptimization(vm.properties.memoryOptimization)
     this.builder.setMemoryOptimization(vm.properties.diskOptimization)
+    this.builder.setTypeMachine(vm.properties.type)
     this.builder.setNetworkConfig(vm.properties.network)
     this.builder.setDiskConfig(vm.properties.disk)
   }
@@ -42,6 +44,8 @@ export class Directo {
     this.builder.setKeyPairName(vm.properties.keyPairName)
     this.builder.setDiskOptimization(vm.properties.memoryOptimization)
     this.builder.setMemoryOptimization(vm.properties.diskOptimization)
+    this.builder.setTypeMachine(vm.properties.type)
+    this.builder.configureProviderSpecific(vm.properties)
     this.builder.setNetworkConfig(vm.properties.network)
     this.builder.setDiskConfig(vm.properties.disk)
   }

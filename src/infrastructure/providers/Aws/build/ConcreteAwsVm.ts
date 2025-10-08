@@ -61,6 +61,10 @@ export class ConcreteAwsVm implements BuilderProviderVm {
 
   }
 
+  setTypeMachine (type: any): void {
+    this.machineType = type
+  }
+
   getResult (): ProvisionResult {
     const IntanceVm = new AWSvm(
       this.vcpus,

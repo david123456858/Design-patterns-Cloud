@@ -23,7 +23,6 @@ Content-Type: application/json
     },
     "disk": {
       "idDisk": "disk-001",
-      "scale": "production",
       "sizeGB": 100,
       "region": "us-east-1",
       "iops": 3000,

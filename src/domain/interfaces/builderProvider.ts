@@ -8,6 +8,7 @@ export interface BuilderProviderVm {
   setDiskOptimization: (hasDiskOptimization: boolean) => void
   configureProviderSpecific: (properties: any) => void
   setKeyPairName: (Name: string) => void
+  setTypeMachine: (type: any) => void
   setNetworkConfig: (net: any) => void
   setDiskConfig: (disk: any) => void
   getResult: () => ProvisionResult

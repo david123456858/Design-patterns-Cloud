@@ -1,10 +1,13 @@
-import { AzureVMDTO } from '../../../api/dto/VM'
+
+import { ProvisionRequestDTO } from '../../../api/dto/VM/provisioning'
+import { Directo } from '../../../application/director/Director'
 import { StatusResult } from '../../../common/enums/StatusResult'
 import { Cloud } from '../../../domain/entities/Cloud'
 import { ProvisionResult } from '../../../domain/valueObjects/ProvisionResult'
+import { providerMethodDirector } from '../providerMethod'
+import { ConcreteAzureBuilder } from './build/ConcreteAzureBuilder'
 // import { AzureDisk } from './Disk/AzureDisk'
 // import { AzureNetwork } from './Network/AzureNetwork'
-import { Azurevm } from './VirtualMachine/AzureVm'
 
 export class AZURE extends Cloud {
   public async diskSupply (disk: any): Promise<ProvisionResult> {
@@ -29,21 +32,17 @@ export class AZURE extends Cloud {
     return new ProvisionResult(StatusResult.SUCCESS, ' networkInstance', 'Network Created')
   }
 
-  public async vmSupply (vm: AzureVMDTO): Promise<ProvisionResult> {
+  public async vmSupply (vm: ProvisionRequestDTO): Promise<ProvisionResult> {
     // Crea las entidades de dominio desde el DTO
-    const net = await this.netWorkSupply(vm.network)
-    const disk = await this.diskSupply(vm.disk)
+    const net = await this.netWorkSupply(vm.properties.network)
+    const disk = await this.diskSupply(vm.properties.disk)
 
-    // const vmInstance = new Azurevm(
-    //   '32GB',
-    //   '8',
-    //   vm.type,
-    //   vm.resourceGroup,
-    //   vm.redVital,
-    //   net.getObject(),
-    //   disk.getObject()
-    // )
+    const builder = new ConcreteAzureBuilder()
+    const director = new Directo()
+    director.setBuilder(builder)
 
-    return new ProvisionResult(StatusResult.SUCCESS, 'vmInstance', 'Azure VM in Deployment...')
+    const provider = new providerMethodDirector(director, vm).getProvider(vm.typeMachine)
+
+    return builder.getResult()
   }
 }

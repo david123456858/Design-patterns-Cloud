@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/consistent-type-definitions */
 /* eslint-disable @typescript-eslint/consistent-type-assertions */
-import { AWSVMDTO } from '../../api/dto/VM'
 import { VM } from '../../domain/entities/VM'
 import { BuilderProviderVm } from '../../domain/interfaces/builderProvider'
 

@@ -1,4 +1,4 @@
-import { Directo } from '../../../../application/director/Director'
+import { Directo } from '../../application/director/Director'
 
 export class providerMethodDirector {
   private readonly vm: any

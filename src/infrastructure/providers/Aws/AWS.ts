@@ -1,12 +1,12 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { AWSNetworkDto } from '../../../api/dto/NetWork'
-import { AWSVMDTO } from '../../../api/dto/VM'
 import { ProvisionRequestDTO } from '../../../api/dto/VM/provisioning'
 import { Directo } from '../../../application/director/Director'
 import { StatusResult } from '../../../common/enums/StatusResult'
 import { Cloud } from '../../../domain/entities/Cloud'
 import { ProvisionResult } from '../../../domain/valueObjects/ProvisionResult'
 import { ConcreteAwsVm } from './build/ConcreteAwsVm'
-import { providerMethodDirector } from './build/providerMethod'
+import { providerMethodDirector } from '../providerMethod'
 // import { AWSDisk } from './Disk/AWSDisk'
 // import { AWSNetwork } from './NetWork/AWSNetwork'
 

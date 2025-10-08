@@ -1,4 +1,4 @@
-import { IsBoolean, IsEnum, IsNumber, IsString } from 'class-validator'
+import { IsBoolean, IsEnum, IsNumber, IsOptional, IsString } from 'class-validator'
 import { DiskSku, diskTypeGPC, volumeTypeAWS } from '../../../common/enums/DiskTypes'
 
 export abstract class DISKDTO {
@@ -10,6 +10,13 @@ export abstract class DISKDTO {
 
   @IsNumber()
     sizeGB!: number
+
+  @IsString()
+    region!: string
+
+  @IsOptional()
+  @IsNumber()
+    iops?: number
 }
 
 export class AWSDiskDto extends DISKDTO {

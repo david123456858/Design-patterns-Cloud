@@ -8,11 +8,14 @@ export class GPCNetwork extends Network {
   constructor (
     idNetwork: string,
     securityPolicy: string,
+    region: string,
     networkName: string,
     subnetworkName: string,
-    firewallTag: string
+    firewallTag: string,
+    publicIp?: boolean,
+    firewallRule?: string[]
   ) {
-    super(idNetwork, securityPolicy)
+    super(idNetwork, securityPolicy, region, publicIp, firewallRule)
     this.networkName = networkName
     this.subnetworkName = subnetworkName
     this.firewallTag = firewallTag

@@ -1,4 +1,4 @@
-import { IsString } from 'class-validator'
+import { IsBoolean, IsOptional, IsString } from 'class-validator'
 
 export abstract class NetworkDto {
   @IsString()
@@ -6,6 +6,16 @@ export abstract class NetworkDto {
 
   @IsString()
     securityPolicy!: string
+
+  @IsString()
+    region!: string
+
+  @IsOptional()
+    firewallRule?: string[]
+
+  @IsOptional()
+  @IsBoolean()
+    publicIp?: boolean
 }
 
 export class GPCNetworkDto extends NetworkDto {
@@ -14,9 +24,6 @@ export class GPCNetworkDto extends NetworkDto {
 
   @IsString()
     subnetworkName!: string
-
-  @IsString()
-    firewallTag!: string
 }
 
 export class AzureNetworKDto extends NetworkDto {

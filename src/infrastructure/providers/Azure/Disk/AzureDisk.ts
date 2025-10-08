@@ -7,12 +7,13 @@ export class AzureDisk extends Disk {
 
   constructor (
     idDisk: string,
-    scale: string,
     sizeGB: number,
+    region: string,
     type: DiskSku,
-    autoDelete: boolean
+    autoDelete: boolean,
+    iops?: number
   ) {
-    super(idDisk, scale, sizeGB)
+    super(idDisk, sizeGB, region, iops)
     this.type = type
     this.autoDelete = autoDelete
   }

@@ -8,11 +8,14 @@ export class AWSNetwork extends Network {
   constructor (
     idNetwork: string,
     securityPolicy: string,
+    region: string,
     vpcId: string,
     subnet: string,
-    IdsecurityGroup: string
+    IdsecurityGroup: string,
+    publicIp?: boolean,
+    firewallRule?: string[]
   ) {
-    super(idNetwork, securityPolicy)
+    super(idNetwork, securityPolicy, region, publicIp, firewallRule)
     this.vpcId = vpcId
     this.subnet = subnet
     this.IdsecurityGroup = IdsecurityGroup

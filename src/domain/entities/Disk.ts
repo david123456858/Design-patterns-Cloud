@@ -1,37 +1,52 @@
 export abstract class Disk {
   protected idDisk: string
-  protected scale: string
+  protected region: string
   protected sizeGB: number
+  protected iops?: number
 
-  constructor (id: string, scale: string, sizeGB: number) {
-    this.scale = scale
+  constructor (
+    idDisk: string,
+    sizeGB: number,
+    region: string,
+    iops?: number
+  ) {
+    this.idDisk = idDisk
     this.sizeGB = sizeGB
-    this.idDisk = id
+    this.region = region
+    this.iops = iops
   }
 
   // Getters
-  getScale (): string {
-    return this.scale
+  getIdDisk (): string {
+    return this.idDisk
   }
 
   getSizeGB (): number {
     return this.sizeGB
   }
 
-  getIdDisk (): string {
-    return this.idDisk
+  getRegion (): string {
+    return this.region
   }
 
+  getIops (): number | undefined {
+    return this.iops
+  }
+
+  // Setters
   setIdDisk (id: string): void {
     this.idDisk = id
   }
 
-  // Setters
-  setScale (scale: string): void {
-    this.scale = scale
-  }
-
   setSizeGB (sizeGB: number): void {
     this.sizeGB = sizeGB
+  }
+
+  setRegion (region: string): void {
+    this.region = region
+  }
+
+  setIops (iops: number): void {
+    this.iops = iops
   }
 }

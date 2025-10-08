@@ -8,11 +8,14 @@ export class AzureNetwork extends Network {
   constructor (
     idNetwork: string,
     securityPolicy: string,
+    region: string,
     virtualNetwork: string,
     subnetName: string,
-    networkSecurityGroup: string
+    networkSecurityGroup: string,
+    publicIp?: boolean,
+    firewallRule?: string[]
   ) {
-    super(idNetwork, securityPolicy)
+    super(idNetwork, securityPolicy, region, publicIp, firewallRule)
     this.virtualNetwork = virtualNetwork
     this.subnetName = subnetName
     this.networkSecurityGroup = networkSecurityGroup

@@ -7,12 +7,13 @@ export class AWSDisk extends Disk {
 
   constructor (
     idDisk: string,
-    scale: string,
     sizeGB: number,
+    region: string,
     type: volumeTypeAWS,
-    encrypted: boolean
+    encrypted: boolean,
+    iops?: number
   ) {
-    super(idDisk, scale, sizeGB)
+    super(idDisk, sizeGB, region, iops)
     this.type = type
     this.encrypted = encrypted
   }

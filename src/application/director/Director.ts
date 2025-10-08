@@ -3,7 +3,7 @@ import { VM } from '../../domain/entities/VM'
 import { BuilderProviderVm } from '../../domain/interfaces/builderProvider'
 
 export class Directo {
-  private builder: BuilderProviderVm
+  private builder!: BuilderProviderVm
 
   setBuilder (builder: BuilderProviderVm): void {
     this.builder = builder
@@ -11,6 +11,8 @@ export class Directo {
 
   createStandard (vm: any): VM {
     console.log('vamo a crear una standard')
+    console.log(vm)
+
     return {} as VM
   }
 

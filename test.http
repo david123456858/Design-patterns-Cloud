@@ -1,70 +1,105 @@
+### Test AWS VM Provisioning
+POST http://localhost:3000/api/v1/vm/provision
+Content-Type: application/json
+
 {
-  "// AWS Example": {
-    "provider": "AWS",
-    "properties": {
-      "type": "t2.micro",
+  "provider": "AWS",
+  "typeMachine": "STANDARD",
+  "properties": {
+    "type": "T3_MEDIUM",
+    "ami": "ami-12345678",
+    "memoryOptimization": false,
+    "diskOptimization": true,
+    "keyPairName": "my-key-pair",
+    "network": {
+      "idNetwork": "net-001",
+      "securityPolicy": "default",
       "region": "us-east-1",
-      "ami": "ami-0abcdef1234567890",
-      "network": {
-        "idNetwork": "net-aws-001",
-        "securityPolicy": "default-policy",
-        "vcpId": "vpc-123456",
-        "subnet": "subnet-123456",
-        "IdsecurityGroup": "sg-123456"
-      },
-      "disk": {
-        "idDisk": "disk-aws-001",
-        "scale": "standard",
-        "sizeGB": 50,
-        "type": "gp2",
-        "encrypted": true
-      }
-    }
-  },
-
-  "// Azure Example": {
-    "provider": "AZURE",
-    "properties": {
-      "type": "Standard_B1s",
-      "resourceGroup": "my-resource-group",
-      "redVital": "my-vnet",
-      "network": {
-        "idNetwork": "net-azure-001",
-        "securityPolicy": "azure-policy",
-        "subnetName": "default-subnet",
-        "virtualNetwork": "my-vnet",
-        "networkSecurityGroup": "nsg-001"
-      },
-      "disk": {
-        "idDisk": "disk-azure-001",
-        "scale": "premium",
-        "sizeGB": 128,
-        "type": "Premium_LRS",
-        "autoDelete": true
-      }
-    }
-  },
-
-  "// GCP Example": {
-    "provider": "GCP",
-    "properties": {
-      "type": "n1-standard-1",
-      "zone": "us-central1-a",
-      "project": "my-gcp-project",
-      "network": {
-        "idNetwork": "net-gcp-001",
-        "securityPolicy": "gcp-policy",
-        "networkName": "default",
-        "subnetworkName": "default-subnet",
-        "firewallTag": "web-server"
-      },
-      "disk": {
-        "idDisk": "disk-gcp-001",
-        "scale": "standard",
-        "sizeGB": 100,
-        "type": "pd-standard",
-        "autoDelete": true
-      }
+      "firewallRule": ["HTTP", "HTTPS", "SSH"],
+      "publicIp": true,
+      "vcpId": "vpc-12345",
+      "subnet": "subnet-12345",
+      "IdsecurityGroup": "sg-12345"
+    },
+    "disk": {
+      "idDisk": "disk-001",
+      "scale": "production",
+      "sizeGB": 100,
+      "region": "us-east-1",
+      "iops": 3000,
+      "type": "gp2",
+      "encrypted": true
     }
   }
 }
+
+### Test Azure VM Provisioning
+POST http://localhost:3000/api/v1/vm/provision
+Content-Type: application/json
+
+{
+  "provider": "AZURE",
+  "typeMachine": "MEMORY_OPTIMIZED",
+  "properties": {
+    "type": "E2S_V3",
+    "resourceGroup": "my-resource-group",
+    "redVital": "prod-network",
+    "memoryOptimization": true,
+    "diskOptimization": false,
+    "keyPairName": "azure-key",
+    "network": {
+      "idNetwork": "net-002",
+      "securityPolicy": "restricted",
+      "region": "eastus",
+      "firewallRule": ["HTTP", "SSH"],
+      "publicIp": false,
+      "subnetName": "backend-subnet",
+      "virtualNetwork": "prod-vnet",
+      "networkSecurityGroup": "backend-nsg"
+    },
+    "disk": {
+      "idDisk": "disk-002",
+      "scale": "premium",
+      "sizeGB": 256,
+      "region": "eastus",
+      "iops": 5000,
+      "type": "Premium_LRS",
+      "autoDelete": true
+    }
+  }
+}
+
+### Test GCP VM Provisioning
+POST http://localhost:3000/api/v1/vm/provision
+Content-Type: application/json
+
+{
+  "provider": "GCP",
+  "typeMachine": "COMPUTE_OPTIMIZED",
+  "properties": {
+    "type": "N2_HIGHCPU_4",
+    "zone": "us-central1-a",
+    "project": "my-project-id",
+    "memoryOptimization": false,
+    "diskOptimization": true,
+    "keyPairName": "gcp-key",
+    "network": {
+      "idNetwork": "net-003",
+      "securityPolicy": "default",
+      "region": "us-central1",
+      "firewallRule": ["HTTP", "HTTPS"],
+      "publicIp": true,
+      "networkName": "prod-network",
+      "subnetworkName": "prod-subnet"
+    },
+    "disk": {
+      "idDisk": "disk-003",
+      "scale": "standard",
+      "sizeGB": 50,
+      "region": "us-central1",
+      "iops": 2000,
+      "type": "pd-ssd",
+      "autoDelete": true
+    }
+  }
+} 

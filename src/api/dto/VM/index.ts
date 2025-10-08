@@ -1,4 +1,4 @@
-import { IsEnum, IsString, ValidateNested } from 'class-validator'
+import { IsBoolean, IsEnum, IsOptional, IsString, ValidateNested } from 'class-validator'
 import { CloudProviderType } from '../../../common/enums/ProviderType'
 import { AWSMachineType, AzureMachineType, GCPMachineType } from '../../../common/enums/MachineTypes'
 import { AWSNetworkDto, AzureNetworKDto, GPCNetworkDto } from '../NetWork'
@@ -15,12 +15,20 @@ export abstract class VMDTO {
 }
 
 export abstract class VMDTOGENERIC {
-  memoryOptimization?: boolean
-  diskOptimization?: boolean
-  keyPairName?: string
+  @IsOptional()
+  @IsBoolean()
+    memoryOptimization?: boolean
+
+  @IsOptional()
+  @IsBoolean()
+    diskOptimization?: boolean
+
+  @IsOptional()
+  @IsBoolean()
+    keyPairName?: string
 }
 
-export class AWSVMDTO {
+export class AWSVMDTO extends VMDTOGENERIC {
   @IsEnum(AWSMachineType)
     type!: AWSMachineType
 
@@ -36,7 +44,7 @@ export class AWSVMDTO {
     disk!: AWSDiskDto
 }
 
-export class AzureVMDTO {
+export class AzureVMDTO extends VMDTOGENERIC {
   @IsEnum(AzureMachineType)
     type!: AzureMachineType
 
@@ -55,7 +63,7 @@ export class AzureVMDTO {
     disk!: AzureDiskDto
 }
 
-export class GCPVMDTO {
+export class GCPVMDTO extends VMDTOGENERIC {
   @IsEnum(GCPMachineType)
     type!: GCPMachineType
 
